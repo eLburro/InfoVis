@@ -43,3 +43,4 @@ fabric.properties
 
 # Custom ignore files
 *.iml
+.idea/*
