@@ -1,0 +1,53 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script language="javascript" type="text/javascript" src="../../lib/p5.js"></script>
+    <script language="javascript" type="text/javascript" src="../../lib/jquery.min.js"></script>
+    <script language="javascript" type="text/javascript" src="sketch.js"></script>
+
+    <!-- this line removes any default padding and style. you might only need one of these values set. -->
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .cube {
+            height: 20px;
+            max-width: 100px;
+        }
+
+        .last-5 {
+            background-color: #000000;
+            color: white;
+        }
+
+        .last-15 {
+            background-color: #646464;
+        }
+
+        .last-25 {
+            background-color: #C8C8C8;
+        }
+    </style>
+</head>
+
+<body>
+<div style="margin-bottom: 30px;">
+    <h3>Assignment 3 - Ramón Burri</h3>
+    <span><b>Topic:</b> Show relation between author and topics as well the last active publishing year.</span>
+    <br>
+    <span><b>Interaction:</b> Drag an author name to the drop zone for exploration (added ghosting effect for drag an drop feeling).
+        <br>Hover over a topic name to see year of last published paper with topic.</span>
+    <br><br>
+    <span><b>Last publishing year:</b></span>
+    <ul>
+        <li><div class="cube last-5">2015 - 2010</div></li>
+        <li><div class="cube last-15">2010 - 2000</div></li>
+        <li><div class="cube last-25">2000 - 1990</div></li>
+    </ul>
+    <br>
+</div>
+
+</body>
+</html>
