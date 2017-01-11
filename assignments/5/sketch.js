@@ -93,7 +93,7 @@ function draw() {
 }
 
 function mouseMoved() {
-    if (font) {
+    if (font != undefined) {
         if (!isAuthorNameMoving) {
             // check for author names hovers
             var isAuthorNameHover = false;
