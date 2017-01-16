@@ -1,0 +1,101 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script language="javascript" type="text/javascript" src="../../lib/p5.js"></script>
+    <script language="javascript" type="text/javascript" src="../../lib/jquery.min.js"></script>
+    <script language="javascript" type="text/javascript" src="../../lib/chosen/chosen.jquery.min.js"></script>
+    <script language="javascript" type="text/javascript" src="../../lib/chosen/chosen.proto.min.js"></script>
+    <script language="javascript" type="text/javascript" src="sketch.js"></script>
+
+    <link rel="stylesheet" href="../../assets/style.css">
+    <link rel="stylesheet" href="../../lib/chosen/chosen.min.css">
+</head>
+
+<body>
+
+<div class="overlay">
+    <h3>Topic Explorer - A tool to support selecting peer review candidates</h3>
+    <span>This tool will allow to search for peer review candidates in the field of Information Visualisation.<br>
+    You can explore and find over hundreds of researcher and papers based on topics.</span>
+    <br><br>
+    <h4>How to use</h4>
+    <img class="tool-img" src="../../assets/tool.jpg"/>
+    <span>The tool is divided in 4 main parts:
+        <ol>
+            <li>Search for one or more topics the peer reviewer should have knowledge of.</li>
+            <li>The list will propose authors with best matches in regards to the topics.<br>
+                The sorting is done by how many papers the author wrote in regards to the selected topics.<br>
+            The authors are sorted from top (best) to bottom (less good).</li>
+            <li>Drag an author to the middle part to see the topics he wrote about.<br>
+                Each triangle represents a topic. The size indicates how many times the author wrote about it.<br>
+                The darkness in the triangle show the time range of the last published paper:
+                <ul>
+                    <li><div class="cube last-5">2015 - 2010</div></li>
+                    <li><div class="cube last-15">2010 - 2000</div></li>
+                    <li><div class="cube last-25">2000 - 1990</div></li>
+                    </ul><br>
+            Through holding SHIFT and scrolling you can increase or decrease the amount of topics shown.<br>
+            Hover over a topic to see the published papers from the author regarding this topic.</li>
+            <li>If you like an author then click on the icon next to the authors name to add him as peer reviewer.</li>
+        </ol>
+        </span>
+
+
+    <div class="footer">CLOSE INFORMATION</div>
+</div>
+
+
+<div class="selected-authors" style="margin-top: 100px;">
+    <h4>For peer review selected authors:</h4>
+    <ul></ul>
+</div>
+
+<div style="margin-bottom: 40px; padding-top: 60px; padding-left: 20px;">
+    Topic selection: <select class="chosen-select" multiple></select>
+    <ul class="selected-topics"></ul>
+</div>
+
+<!--- here is canvas --->
+
+<script type="text/javascript">
+    var chosenSelector = $('.chosen-select');
+    var overviewIsClosed = false;
+
+    // load all topic names
+    $.getJSON('../../data/allTopics.json', function (data) {
+        $.each(data, function (key, val) {
+            chosenSelector.append($('<option>', {
+                value: val,
+                text: val
+            }));
+        });
+
+        chosenSelector.chosen({
+            max_selected_options: 5,
+            width: "400px",
+            placeholder_text_multiple: 'Select research topics'
+        });
+
+        chosenSelector.on('change', function (evt, params) {
+            moveLock = true;
+            selectorChanged(params);
+        });
+    });
+
+    $(function () {
+        $('.footer').click(function () {
+            if (overviewIsClosed) {
+                $('.overlay').removeClass('closed');
+                $('.footer').text('CLOSE INFORMATION');
+                overviewIsClosed = false;
+
+            } else {
+                $('.overlay').addClass('closed');
+                $('.footer').text('EXPAND INFORMATION');
+                overviewIsClosed = true;
+            }
+        })
+    });
+</script>
+</body>
+</html>
